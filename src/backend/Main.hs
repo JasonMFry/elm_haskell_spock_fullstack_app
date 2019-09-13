@@ -12,13 +12,13 @@ module Main
   )
 where
 
-import qualified Control.Monad.Logger          as Logger
-import qualified Data.Aeson                    as Aeson
-import qualified Data.Text                     as T
-import qualified Database.Persist.Sqlite       as Sql
-import qualified Database.Persist.TH           as TH
-import qualified Web.Spock                     as Spock
-import qualified Web.Spock.Config              as SpockCfg
+import qualified Control.Monad.Logger    as Logger
+import qualified Data.Aeson              as Aeson
+import qualified Data.Text               as T
+import qualified Database.Persist.Sqlite as Sql
+import qualified Database.Persist.TH     as TH
+import qualified Web.Spock               as Spock
+import qualified Web.Spock.Config        as SpockCfg
 
 
 type Api = Spock.SpockM Sql.SqlBackend () ()
