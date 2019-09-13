@@ -56,34 +56,41 @@ runSql action = Spock.runQuery
   $ \conn -> Logger.runStdoutLoggingT $ Sql.runSqlConn action conn
 
 routes :: Api ()
-routes = do
-  Spock.get "patients" $ do
-    pts <- runSql $ Sql.selectList [] [Sql.Asc PatientId]
-    Spock.json pts
+routes =
+  Spock.prehook corsHeader $ do
+    Spock.get "patients" $ do
+      pts <- runSql $ Sql.selectList [] [Sql.Asc PatientId]
+      Spock.json pts
 
-  Spock.get ("patients" Spock.<//> Spock.var) $ \ptId -> do
-    maybePt <- runSql $ Sql.get ptId :: ApiAction (Maybe Patient)
-    case maybePt of
-      Nothing -> errorJson 2 "Could not find patient"
-      Just pt -> Spock.json pt
+    Spock.get ("patients" Spock.<//> Spock.var) $ \ptId -> do
+      maybePt <- runSql $ Sql.get ptId :: ApiAction (Maybe Patient)
+      case maybePt of
+        Nothing -> errorJson 2 "Could not find patient"
+        Just pt -> Spock.json pt
 
-  Spock.put ("patients" Spock.<//> Spock.var) $ \ptId -> do
-    maybePt <- Spock.jsonBody' :: ApiAction (Maybe Patient)
-    case maybePt of
-      Nothing -> errorJson 1 "Failed to parse request body as Patient"
-      Just pt -> do
-        id' <- runSql $ Sql.replace ptId pt
-        Spock.json $ Aeson.object
-          ["result" Aeson..= Aeson.String "success", "id" Aeson..= id']
+    Spock.put ("patients" Spock.<//> Spock.var) $ \ptId -> do
+      maybePt <- Spock.jsonBody' :: ApiAction (Maybe Patient)
+      case maybePt of
+        Nothing -> errorJson 1 "Failed to parse request body as Patient"
+        Just pt -> do
+          id' <- runSql $ Sql.replace ptId pt
+          Spock.json $ Aeson.object
+            ["result" Aeson..= Aeson.String "success", "id" Aeson..= id']
 
-  Spock.post "patients" $ do
-    maybePt <- Spock.jsonBody' :: ApiAction (Maybe Patient)
-    case maybePt of
-      Nothing -> errorJson 1 "Failed to parse request body as Patient"
-      Just pt -> do
-        newId <- runSql $ Sql.insert pt
-        Spock.json $ Aeson.object
-          ["result" Aeson..= Aeson.String "success", "id" Aeson..= newId]
+    Spock.post "patients" $ do
+      maybePt <- Spock.jsonBody' :: ApiAction (Maybe Patient)
+      case maybePt of
+        Nothing -> errorJson 1 "Failed to parse request body as Patient"
+        Just pt -> do
+          newId <- runSql $ Sql.insert pt
+          Spock.json $ Aeson.object
+            ["result" Aeson..= Aeson.String "success", "id" Aeson..= newId]
+
+corsHeader :: ApiAction ()
+corsHeader =
+  do ctx <- Spock.getContext
+     Spock.setHeader "Access-Control-Allow-Origin" "*"
+     pure ctx
 
 errorJson :: Int -> T.Text -> ApiAction ()
 errorJson code message = Spock.json $ Aeson.object
