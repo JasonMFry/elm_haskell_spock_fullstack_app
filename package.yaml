@@ -1,0 +1,56 @@
+name: Spock-rest
+version: 0.1.0.0
+github: "JasonMFry/Spock-rest"
+license: BSD3
+author: "Jason Fry"
+maintainer: "me@jasonmfry.com"
+copyright: "2019 Jason Fry"
+
+extra-source-files:
+  - README.md
+  - ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/JasonMFry/ten_meter_walk#readme>
+
+dependencies:
+  - base >= 4.7 && < 5
+  - aeson
+  - monad-logger
+  - persistent-sqlite
+  - persistent-template
+  - Spock >= 0.13.0.0 && < 1
+  - text
+
+library:
+  source-dirs: src
+
+executables:
+  Spock-rest-exe:
+    main: Main.hs
+    source-dirs: src/backend
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+      # Use these for dev, remove afterwards
+      # - -Weverything
+      # - -Werror
+    dependencies:
+      - Spock-rest
+# tests:
+#   Spock-rest-test:
+#     main:                Spec.hs
+#     source-dirs:         test
+#     ghc-options:
+#     - -threaded
+#     - -rtsopts
+#     - -with-rtsopts=-N
+#     dependencies:
+#     - Spock-rest
