@@ -31,10 +31,19 @@ type Model
 
 type alias Patient =
     { patientId : Int
-    , patientName : String
+    , patientName : PatientName
     , patientNote : String
     , patientSeconds : Int
     }
+
+
+type PatientName
+    = PatientName String
+
+
+patientNameToString : PatientName -> String
+patientNameToString (PatientName s) =
+    s
 
 
 init : () -> ( Model, Cmd Msg )
@@ -85,9 +94,14 @@ patientDecoder : D.Decoder Patient
 patientDecoder =
     D.map4 Patient
         (D.field "id" D.int)
-        (D.field "name" D.string)
+        patientNameDecoder
         (D.field "note" D.string)
         (D.field "seconds" D.int)
+
+
+patientNameDecoder : D.Decoder PatientName
+patientNameDecoder =
+    D.map PatientName (D.field "name" D.string)
 
 
 
@@ -120,7 +134,7 @@ renderPatients pts =
     in
     case maybePt of
         Just pt ->
-            Html.div [] [ Html.text <| "Names: " ++ pt.patientName ]
+            Html.div [] [ Html.text <| "Names: " ++ patientNameToString pt.patientName ]
 
         Nothing ->
             Html.div [] []
