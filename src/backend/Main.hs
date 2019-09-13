@@ -29,13 +29,13 @@ type PatientName = T.Text
 
 type PatientNote = T.Text
 
-type PatientTime = Int
+type PatientSeconds = Int
 
 TH.share [TH.mkPersist TH.sqlSettings, TH.mkMigrate "migrateAll"] [TH.persistLowerCase|
 Patient json
   name PatientName
   note PatientNote
-  time PatientTime
+  seconds PatientSeconds
   deriving Show
 |]
 

@@ -17,7 +17,7 @@ type alias Model =
     { patientId : Int
     , patientName : String
     , patientNote : String
-    , patientTime : Int
+    , patientSeconds : Int
     }
 
 
