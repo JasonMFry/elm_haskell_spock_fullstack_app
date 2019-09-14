@@ -24,7 +24,7 @@ renderTool state pts maybePt =
 
         Just pt ->
             [ renderDropdown state pts
-            , renderNotesSection maybePt
+            , renderNotesSection pt
             ]
 
 
@@ -58,20 +58,11 @@ populateDropdown pts =
 -- NOTES
 
 
-renderNotesSection : Maybe Model.Patient -> Html.Html Msg.Msg
-renderNotesSection maybePt =
-    let
-        preexistingNote =
-            case maybePt of
-                Just pt ->
-                    pt.patientNote
-
-                Nothing ->
-                    ""
-    in
+renderNotesSection : Model.Patient -> Html.Html Msg.Msg
+renderNotesSection pt =
     Form.text
         [ Form.id "patientNotes"
         , Form.large
-        , Form.value preexistingNote
+        , Form.value pt.patientNote
         , Form.onInput Msg.PatientNote
         ]
