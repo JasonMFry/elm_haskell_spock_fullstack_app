@@ -1,6 +1,7 @@
 module Main exposing (..)
 
 import Api
+import Bootstrap.Dropdown as Dropdown
 import Browser
 import Html
 import Http
@@ -22,7 +23,7 @@ main =
 
 init : () -> ( Model.Model, Cmd Msg.Msg )
 init _ =
-    ( Model.Loading
+    ( Model.Loading Dropdown.initialState
     , Api.getAllPatients
     )
 

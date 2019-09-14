@@ -1,10 +1,14 @@
 module View exposing (view)
 
+import Bootstrap.Button as Button
+import Bootstrap.Dropdown as Dropdown
 import Html
+import Html.Attributes as Html
 import Model
+import Msg
 
 
-view : Model.Model -> Html.Html msg
+view : Model.Model -> Html.Html Msg.Msg
 view model =
     let
         output =
@@ -12,13 +16,30 @@ view model =
                 Model.Failure ->
                     Html.text "Failure"
 
-                Model.Loading ->
-                    Html.text "Loading"
+                Model.Loading d ->
+                    renderDropdown d
 
                 Model.Success pts ->
                     renderPatients pts
     in
     Html.div [] [ output ]
+
+
+renderDropdown : Dropdown.State -> Html.Html Msg.Msg
+renderDropdown state =
+    Dropdown.dropdown
+        state
+        { options = [ Dropdown.alignMenuRight ]
+        , toggleMsg = Msg.DropdownMsg
+        , toggleButton =
+            Dropdown.toggle [ Button.warning ] [ Html.text "MyDropdown1" ]
+        , items =
+            [ Dropdown.divider
+            , Dropdown.header [ Html.text "Silly items" ]
+            , Dropdown.buttonItem [ Html.class "disabled" ] [ Html.text "DoNothing1" ]
+            , Dropdown.buttonItem [] [ Html.text "DoNothing2" ]
+            ]
+        }
 
 
 renderPatients : List Model.Patient -> Html.Html msg

@@ -3,10 +3,12 @@
 
 module Model exposing (..)
 
+import Bootstrap.Dropdown as Dropdown
+
 
 type Model
     = Failure
-    | Loading
+    | Loading Dropdown.State
     | Success (List Patient)
 
 
