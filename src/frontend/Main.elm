@@ -1,17 +1,15 @@
-module Main exposing (..)
+module Main exposing (main)
 
 import Api
 import Bootstrap.Dropdown as Dropdown
 import Browser
-import Html
-import Http
-import Json.Decode as D
 import Model
 import Msg
 import Update
 import View
 
 
+main : Program () Model.Model Msg.Msg
 main =
     Browser.element
         { init = init
@@ -33,5 +31,5 @@ init _ =
 
 
 subscriptions : Model.Model -> Sub Msg.Msg
-subscriptions model =
+subscriptions _ =
     Sub.none

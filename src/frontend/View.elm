@@ -33,7 +33,7 @@ renderDropdown state =
         { options = [ Dropdown.alignMenuRight ]
         , toggleMsg = Msg.DropdownMsg
         , toggleButton =
-            Dropdown.toggle [ Button.warning ] [ Html.text "MyDropdown1" ]
+            Dropdown.toggle [ Button.large ] [ Html.text "MyDropdown1" ]
         , items =
             [ Dropdown.divider
             , Dropdown.header [ Html.text "Silly items" ]
@@ -55,4 +55,4 @@ renderPatients pts =
             Html.div [] [ Html.text <| "Names: " ++ Model.patientNameToString pt.patientName ]
 
         Nothing ->
-            Html.div [] []
+            Html.div [] [ Html.text "No patients" ]

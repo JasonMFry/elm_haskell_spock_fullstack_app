@@ -1,9 +1,7 @@
 -- TODO don't expose constructors
 
 
-module Model exposing (..)
-
-import Bootstrap.Dropdown as Dropdown
+module Model exposing (Model(..), Patient, PatientName(..), patientNameToString)
 
 
 type Model
