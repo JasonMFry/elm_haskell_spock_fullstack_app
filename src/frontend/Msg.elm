@@ -9,3 +9,5 @@ type Msg
     = NoOp
     | FetchPatients (Result Http.Error (List Model.Patient))
     | DropdownMsg Dropdown.State
+    | SelectedPatient Model.Patient
+    | PatientNote String

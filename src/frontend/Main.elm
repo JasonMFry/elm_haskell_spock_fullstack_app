@@ -21,7 +21,10 @@ main =
 
 init : () -> ( Model.Model, Cmd Msg.Msg )
 init _ =
-    ( Model.Loading
+    ( { patients = []
+      , selectedPatient = Nothing
+      , dropdownState = Dropdown.initialState
+      }
     , Api.getAllPatients
     )
 
@@ -32,9 +35,4 @@ init _ =
 
 subscriptions : Model.Model -> Sub Msg.Msg
 subscriptions model =
-    case model of
-        Model.Success ( _, dropdownState ) ->
-            Dropdown.subscriptions dropdownState Msg.DropdownMsg
-
-        _ ->
-            Sub.none
+    Dropdown.subscriptions model.dropdownState Msg.DropdownMsg

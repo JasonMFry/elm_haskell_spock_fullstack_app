@@ -1,6 +1,5 @@
 module Update exposing (update)
 
-import Bootstrap.Dropdown as Dropdown
 import Model
 import Msg
 
@@ -14,17 +13,23 @@ update msg model =
         Msg.FetchPatients result ->
             case result of
                 Ok pts ->
-                    ( Model.Success ( pts, Dropdown.initialState ), Cmd.none )
+                    ( { model | patients = pts }, Cmd.none )
 
                 Err _ ->
                     -- Could add better error output here.
-                    ( Model.Failure, Cmd.none )
+                    ( model, Cmd.none )
 
         Msg.DropdownMsg state ->
-            case model of
-                Model.Success ( pts, _ ) ->
-                    -- Having to use Model.Success here seems smelly, the data structure is probably sub-optimal.
-                    ( Model.Success ( pts, state ), Cmd.none )
+            ( { model | dropdownState = state }, Cmd.none )
 
-                _ ->
-                    ( model, Cmd.none )
+        Msg.SelectedPatient pt ->
+            ( { model | selectedPatient = Just pt }, Cmd.none )
+
+        Msg.PatientNote note ->
+            -- This isn't updating the list of patients, which means if the user switches to a different user before submitting the form, the new info is wiped out.
+            ( { model
+                | selectedPatient =
+                    Maybe.map (\p -> { p | patientNote = note }) model.selectedPatient
+              }
+            , Cmd.none
+            )

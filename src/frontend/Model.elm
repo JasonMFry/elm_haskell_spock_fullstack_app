@@ -1,16 +1,16 @@
 -- TODO don't expose constructors
 
 
-module Model exposing (Model(..), Patient, PatientName(..), patientNameToString)
+module Model exposing (Model, Patient, PatientName(..), patientNameToString)
 
 import Bootstrap.Dropdown as Dropdown
 
 
-type Model
-    = Failure
-    | Loading
-      -- I would need to add a dropdown to the Loading ADT to prevent FOOC. But I'm suspicious of this data structure so there's probably another, better option.
-    | Success ( List Patient, Dropdown.State )
+type alias Model =
+    { patients : List Patient
+    , selectedPatient : Maybe Patient
+    , dropdownState : Dropdown.State
+    }
 
 
 
