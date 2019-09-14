@@ -1,26 +1,27 @@
 module View exposing (view)
 
-import Main
+import Html
+import Model
 
 
-view : Model -> Html.Html Msg
+view : Model.Model -> Html.Html msg
 view model =
     let
         output =
             case model of
-                Failure ->
+                Model.Failure ->
                     Html.text "Failure"
 
-                Loading ->
+                Model.Loading ->
                     Html.text "Loading"
 
-                Success pts ->
+                Model.Success pts ->
                     renderPatients pts
     in
     Html.div [] [ output ]
 
 
-renderPatients : List Patient -> Html.Html msg
+renderPatients : List Model.Patient -> Html.Html msg
 renderPatients pts =
     -- TODO use dropdown to render names
     let
@@ -29,7 +30,7 @@ renderPatients pts =
     in
     case maybePt of
         Just pt ->
-            Html.div [] [ Html.text <| "Names: " ++ patientNameToString pt.patientName ]
+            Html.div [] [ Html.text <| "Names: " ++ Model.patientNameToString pt.patientName ]
 
         Nothing ->
             Html.div [] []

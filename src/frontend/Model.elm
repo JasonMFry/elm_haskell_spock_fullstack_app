@@ -1,3 +1,6 @@
+-- TODO don't expose constructors
+
+
 module Model exposing (..)
 
 

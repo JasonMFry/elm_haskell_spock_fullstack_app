@@ -5,6 +5,8 @@ import Html
 import Http
 import Json.Decode as D
 import Model
+import Msg
+import Update
 import View
 
 
@@ -12,73 +14,48 @@ main =
     Browser.element
         { init = init
         , subscriptions = subscriptions
-        , update = update
-        , view = view
+        , update = Update.update
+        , view = View.view
         }
 
 
-init : () -> ( Model, Cmd msg )
+init : () -> ( Model.Model, Cmd Msg.Msg )
 init _ =
-    ( Loading
+    ( Model.Loading
     , getAllPatients
     )
-
-
-
--- UPDATE
-
-
-type Msg
-    = NoOp
-    | FetchPatients (Result Http.Error (List Patient))
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        NoOp ->
-            ( model, Cmd.none )
-
-        FetchPatients result ->
-            case result of
-                Ok pts ->
-                    ( Success pts, Cmd.none )
-
-                Err _ ->
-                    -- Could add better error output here.
-                    ( Failure, Cmd.none )
 
 
 
 -- HTTP
 
 
-getAllPatients : Cmd Msg
+getAllPatients : Cmd Msg.Msg
 getAllPatients =
     Http.get
         { url = "http://localhost:8080/patients" -- shouldn't hardcode this in prod for sure.
-        , expect = Http.expectJson FetchPatients (D.list patientDecoder)
+        , expect = Http.expectJson Msg.FetchPatients (D.list patientDecoder)
         }
 
 
-patientDecoder : D.Decoder Patient
+patientDecoder : D.Decoder Model.Patient
 patientDecoder =
-    D.map4 Patient
+    D.map4 Model.Patient
         (D.field "id" D.int)
         patientNameDecoder
         (D.field "note" D.string)
         (D.field "seconds" D.int)
 
 
-patientNameDecoder : D.Decoder PatientName
+patientNameDecoder : D.Decoder Model.PatientName
 patientNameDecoder =
-    D.map PatientName (D.field "name" D.string)
+    D.map Model.PatientName (D.field "name" D.string)
 
 
 
 -- SUBS
 
 
-subscriptions : Model -> Sub Msg
+subscriptions : Model.Model -> Sub Msg.Msg
 subscriptions model =
     Sub.none
