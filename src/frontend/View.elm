@@ -8,9 +8,8 @@ import Model
 import Msg
 
 
-view : Dropdown.State -> Model.Model -> Html.Html Msg.Msg
-view dropdownState model =
-    -- It seems bad to pass in Dropdown.State but I'm not going to take the time now to figure it out.
+view : Model.Model -> Html.Html Msg.Msg
+view model =
     let
         output =
             case model of
@@ -20,39 +19,29 @@ view dropdownState model =
                 Model.Loading ->
                     Html.text "Loading..."
 
-                Model.Success pts ->
-                    renderPatients pts
+                Model.Success ( pts, dropdownState ) ->
+                    renderDropdown dropdownState pts
     in
-    Html.div [] [ renderDropdown dropdownState, output ]
+    Html.div [] [ output ]
 
 
-renderDropdown : Dropdown.State -> Html.Html Msg.Msg
-renderDropdown state =
+renderDropdown : Dropdown.State -> List Model.Patient -> Html.Html Msg.Msg
+renderDropdown state pts =
     Dropdown.dropdown
         state
         { options = [ Dropdown.alignMenuRight ]
         , toggleMsg = Msg.DropdownMsg
         , toggleButton =
             Dropdown.toggle [ Button.large ] [ Html.text "MyDropdown1" ]
-        , items =
-            [ Dropdown.divider
-            , Dropdown.header [ Html.text "Silly items" ]
-            , Dropdown.buttonItem [ Html.class "disabled" ] [ Html.text "DoNothing1" ]
-            , Dropdown.buttonItem [] [ Html.text "DoNothing2" ]
-            ]
+        , items = populateDropdown pts
         }
 
 
-renderPatients : List Model.Patient -> Html.Html msg
-renderPatients pts =
-    -- TODO use dropdown to render names
-    let
-        maybePt =
-            List.head pts
-    in
-    case maybePt of
-        Just pt ->
-            Html.div [] [ Html.text <| "Names: " ++ Model.patientNameToString pt.patientName ]
-
-        Nothing ->
-            Html.div [] [ Html.text "No patients" ]
+populateDropdown : List Model.Patient -> List (Dropdown.DropdownItem msg)
+populateDropdown pts =
+    List.map
+        (\pt ->
+            Dropdown.buttonItem []
+                [ Html.text <| Model.patientNameToString pt.patientName ]
+        )
+        pts

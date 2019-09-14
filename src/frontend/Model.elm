@@ -3,11 +3,14 @@
 
 module Model exposing (Model(..), Patient, PatientName(..), patientNameToString)
 
+import Bootstrap.Dropdown as Dropdown
+
 
 type Model
     = Failure
     | Loading
-    | Success (List Patient)
+      -- I would need to add a dropdown to the Loading ADT to prevent FOOC. But I'm suspicious of this data structure so there's probably another, better option.
+    | Success ( List Patient, Dropdown.State )
 
 
 

@@ -15,7 +15,7 @@ main =
         { init = init
         , subscriptions = subscriptions
         , update = Update.update
-        , view = View.view Dropdown.initialState
+        , view = View.view
         }
 
 
@@ -31,5 +31,10 @@ init _ =
 
 
 subscriptions : Model.Model -> Sub Msg.Msg
-subscriptions _ =
-    Sub.none
+subscriptions model =
+    case model of
+        Model.Success ( _, dropdownState ) ->
+            Dropdown.subscriptions dropdownState Msg.DropdownMsg
+
+        _ ->
+            Sub.none
