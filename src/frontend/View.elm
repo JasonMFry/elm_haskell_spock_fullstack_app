@@ -8,21 +8,22 @@ import Model
 import Msg
 
 
-view : Model.Model -> Html.Html Msg.Msg
-view model =
+view : Dropdown.State -> Model.Model -> Html.Html Msg.Msg
+view dropdownState model =
+    -- It seems bad to pass in Dropdown.State but I'm not going to take the time now to figure it out.
     let
         output =
             case model of
                 Model.Failure ->
                     Html.text "Failure"
 
-                Model.Loading d ->
-                    renderDropdown d
+                Model.Loading ->
+                    Html.text "Loading..."
 
                 Model.Success pts ->
                     renderPatients pts
     in
-    Html.div [] [ output ]
+    Html.div [] [ renderDropdown dropdownState, output ]
 
 
 renderDropdown : Dropdown.State -> Html.Html Msg.Msg

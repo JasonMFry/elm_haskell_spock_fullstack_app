@@ -18,3 +18,8 @@ update msg model =
                 Err _ ->
                     -- Could add better error output here.
                     ( Model.Failure, Cmd.none )
+
+        Msg.DropdownMsg _ ->
+            ( model, Cmd.none )
+
+

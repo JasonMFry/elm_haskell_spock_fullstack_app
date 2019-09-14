@@ -17,13 +17,13 @@ main =
         { init = init
         , subscriptions = subscriptions
         , update = Update.update
-        , view = View.view
+        , view = View.view Dropdown.initialState
         }
 
 
 init : () -> ( Model.Model, Cmd Msg.Msg )
 init _ =
-    ( Model.Loading Dropdown.initialState
+    ( Model.Loading
     , Api.getAllPatients
     )
 

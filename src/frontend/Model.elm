@@ -8,7 +8,7 @@ import Bootstrap.Dropdown as Dropdown
 
 type Model
     = Failure
-    | Loading Dropdown.State
+    | Loading
     | Success (List Patient)
 
 
