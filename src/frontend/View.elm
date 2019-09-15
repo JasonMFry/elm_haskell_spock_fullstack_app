@@ -3,7 +3,7 @@ module View exposing (view)
 import Bootstrap.Button as Button
 import Bootstrap.Dropdown as Dropdown
 import Bootstrap.Form as Form
-import Bootstrap.Form.Input as Form
+import Bootstrap.Form.Textarea as Form
 import Html
 import Html.Attributes as Html
 import Html.Events as Html
@@ -60,9 +60,9 @@ populateDropdown pts =
 
 renderNotesSection : Model.Patient -> Html.Html Msg.Msg
 renderNotesSection pt =
-    Form.text
+    Form.textarea
         [ Form.id "patientNotes"
-        , Form.large
+        , Form.rows 5
         , Form.value pt.patientNote
         , Form.onInput Msg.PatientNote
         ]
