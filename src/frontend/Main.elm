@@ -28,6 +28,8 @@ init _ =
       , timerState = Model.Stopped
       , secondsElapsed = Time.millisToPosix 0
       , resultTime = Time.millisToPosix 0
+      , showNewPatientForm = False
+      , newPatientToAdd = { patientId = 0, patientName = Model.PatientName "", patientNote = "", patientSeconds = 0 }
       }
     , Api.getAllPatients
     )

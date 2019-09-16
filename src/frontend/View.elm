@@ -1,8 +1,11 @@
 module View exposing (view)
 
+-- import Bootstrap.Form.InputGroup as InputGroup
+
 import Bootstrap.Button as Button
 import Bootstrap.Dropdown as Dropdown
 import Bootstrap.Form as Form
+import Bootstrap.Form.Input as Input
 import Bootstrap.Form.Textarea as Form
 import Html
 import Html.Attributes as Html
@@ -19,10 +22,17 @@ view model =
 
 renderTool : Model.Model -> List (Html.Html Msg.Msg)
 renderTool model =
-    -- should make these Bools into newtypes so they don't get confused
     let
+        showNewPatientForm =
+            if model.showNewPatientForm == True then
+                [ renderAddNewPatientInput, renderAddNewPatientButton model.newPatientToAdd ]
+
+            else
+                []
+
         disableStartButton =
             if model.timerState == Model.Running then
+                -- should make these Bools into newtypes so they don't get confused
                 True
 
             else
@@ -44,10 +54,17 @@ renderTool model =
     in
     case model.selectedPatient of
         Nothing ->
-            [ renderDropdown model.dropdownState model.patients ]
+            [ renderDropdown model.dropdownState model.patients
+            , renderShowNewPatientFormButton
+            , Html.div [] showNewPatientForm
+            ]
 
         Just pt ->
             [ renderDropdown model.dropdownState model.patients
+            , renderShowNewPatientFormButton
+            , Html.div [] showNewPatientForm
+
+            -- All of this form stuff should be in an HTML form element
             , renderNotesSection pt
             , renderSubmitButton pt
             , renderTimer resTime disableStartButton (not disableStartButton)
@@ -103,7 +120,7 @@ renderSubmitButton pt =
     Button.submitButton
         [ Button.primary
         , Button.large
-        , Button.onClick <| Msg.SubmitForm pt
+        , Button.onClick <| Msg.SubmitUpdatePatientForm pt
         ]
         [ Html.text "Submit" ]
 
@@ -141,3 +158,35 @@ renderStopButton disableButton =
         , Button.disabled disableButton
         ]
         [ Html.text "Stop Timer" ]
+
+
+
+-- ADD NEW PATIENT
+
+
+renderShowNewPatientFormButton : Html.Html Msg.Msg
+renderShowNewPatientFormButton =
+    Button.button
+        [ Button.outlineDark
+        , Button.large
+        , Button.onClick Msg.ShowNewPatientForm
+        ]
+        [ Html.text "Show 'New Patient' Form" ]
+
+
+renderAddNewPatientInput : Html.Html Msg.Msg
+renderAddNewPatientInput =
+    Input.text
+        [ Input.id "newPatientName"
+        , Input.onInput Msg.NewPatientName
+        ]
+
+
+renderAddNewPatientButton : Model.Patient -> Html.Html Msg.Msg
+renderAddNewPatientButton pt =
+    Button.submitButton
+        [ Button.primary
+        , Button.small
+        , Button.onClick <| Msg.SubmitNewPatientForm pt
+        ]
+        [ Html.text "Add New Patient" ]

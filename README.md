@@ -15,7 +15,7 @@
 
 ## Known Issues
 
-- There is no way to add new patients through the UI.
+- ~~There is no way to add new patients through the UI.~~
 - The database doesn't allow for storing multiple test results right now. There
   is no confirmation dialogue when editing test results, so accidentally
   overwriting notes and/or times is easy.

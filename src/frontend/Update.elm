@@ -3,6 +3,7 @@ module Update exposing (update)
 import Api
 import Model
 import Msg
+import String
 import Task
 import Time
 
@@ -22,9 +23,36 @@ update msg model =
                     -- Could add better error output here.
                     ( model, Cmd.none )
 
-        Msg.PutPatient result ->
+        Msg.SubmitUpdatePatientForm pt ->
+            ( model, Api.putPatient pt )
+
+        Msg.PutPatient _ ->
             -- do something with the result?
             ( model, Cmd.none )
+
+        Msg.SubmitNewPatientForm pt ->
+            ( model, Api.postPatient pt )
+
+        Msg.PostPatient _ ->
+            -- should check that it's a success before deleting patientName
+            let
+                oldPt =
+                    model.newPatientToAdd
+
+                newPt =
+                    { oldPt | patientName = Model.PatientName "" }
+            in
+            ( { model | newPatientToAdd = newPt }, Api.getAllPatients )
+
+        Msg.NewPatientName str ->
+            let
+                oldPt =
+                    model.newPatientToAdd
+
+                newPt =
+                    { oldPt | patientId = 0, patientName = Model.PatientName str, patientNote = "", patientSeconds = 0 }
+            in
+            ( { model | newPatientToAdd = newPt }, Cmd.none )
 
         Msg.DropdownMsg state ->
             ( { model | dropdownState = state }, Cmd.none )
@@ -39,9 +67,6 @@ update msg model =
               }
             , Cmd.none
             )
-
-        Msg.SubmitForm pt ->
-            ( model, Api.putPatient pt )
 
         Msg.Tick seconds ->
             let
@@ -72,3 +97,6 @@ update msg model =
               }
             , Cmd.none
             )
+
+        Msg.ShowNewPatientForm ->
+            ( { model | showNewPatientForm = True }, Cmd.none )

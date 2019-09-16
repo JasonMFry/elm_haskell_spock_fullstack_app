@@ -4,6 +4,7 @@
 module Model exposing (Model, Patient, PatientName(..), TimerState(..), patientNameToString)
 
 import Bootstrap.Dropdown as Dropdown
+import String
 import Time
 
 
@@ -14,6 +15,8 @@ type alias Model =
     , timerState : TimerState
     , secondsElapsed : Time.Posix
     , resultTime : Time.Posix
+    , showNewPatientForm : Bool
+    , newPatientToAdd : Patient
     }
 
 
@@ -35,7 +38,7 @@ type PatientName
 
 patientNameToString : PatientName -> String
 patientNameToString (PatientName s) =
-    s
+    String.trim s
 
 
 type TimerState

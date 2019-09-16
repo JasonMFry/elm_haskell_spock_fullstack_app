@@ -1,4 +1,4 @@
-module Api exposing (getAllPatients, putPatient)
+module Api exposing (getAllPatients, postPatient, putPatient)
 
 import Http
 import Json.Decode as D
@@ -21,6 +21,15 @@ putPatient pt =
         , expect = Http.expectWhatever Msg.PutPatient
         , timeout = Nothing
         , tracker = Nothing
+        }
+
+
+postPatient : Model.Patient -> Cmd Msg.Msg
+postPatient pt =
+    Http.post
+        { url = "http://localhost:8080/patients"
+        , body = Http.jsonBody <| patientEncoder pt
+        , expect = Http.expectWhatever Msg.PostPatient
         }
 
 
