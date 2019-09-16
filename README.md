@@ -1,9 +1,24 @@
 # Timed 10-meter Walk Feature
 
+## Getting Started
+
+1. Clone this repo and `cd` into the ten_meter_walk directory.
+2. Follow [these instructions](https://docs.haskellstack.org/en/stable/README/)
+   to install `stack`. Note that downloading stack and running the next command
+   will likely take a long time.
+3. Run `stack build --fast`
+4. Run `stack exec ten-meter-walk`
+5. Follow [these instructions](https://guide.elm-lang.org/install.html) to
+   install `elm`.
+6. Run `elm make src/frontend/Main.elm --output=elm.js`
+7. Open index.html
+
+## Dev Instructions
+
 Thank you for accepting the OPIE Software Coding Challenge.  We believe that
 the best way to determine how well a candidate will create an experience is to
 do one!  We have created a very simple user story for you to demonstrate your
-command of UI, UX, API, and software development principles.
+  command of UI, UX, API, and software development principles.
 
 What we would like you to do is take this user story and create a small program
 that displays your skill.  We would also be interested in any additional
@@ -14,21 +29,21 @@ We rely heavily on what you submit to make our decision. This is an “open book
 test” so we expect something that is reasonably complete and which stands
 alone.  Please do be creative and feel free to do your own research.
 
-## User Story
+### User Story
 
 As a certified Prosthetist, I need to conduct the “Timed 10 Meter Walk Test” on
 my patients and record the results in their medical record.  I want a simple
 tool to help me conduct the test and keep track of the results for each
 patient.
 
-## Design Assumptions
+### Design Assumptions
 
 I already know how to conduct the test, so the tool doesn’t need to focus on
 teaching me about it. The tool doesn’t need any authentication or security
 features. It needs to be easy to use and generate accurate output.  For each
 test, it should save the times and a note to a data storage system.
 
-## Focus
+### Focus
 
 Since you have indicated that you have broad experience in development, we
 recommend adopting a traditional web-based frontend/backend architecture.
@@ -39,12 +54,12 @@ Special attention should be paid to:
 - API-based storage and retrieval of test results
 - Data storage of test results
 
-## Deliverables
+### Deliverables
 
 The solution you ultimately send to us must contain both the source code for
 the solution and any instructions necessary for us to build and run it on our
 workstations. We need to see it working!
 
-## Extra Credit
+### Extra Credit
 
 Do a work-tasks break down that shows us how you approached the problem.

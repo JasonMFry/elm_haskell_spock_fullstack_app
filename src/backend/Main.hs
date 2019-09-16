@@ -46,6 +46,7 @@ main = do
     $ Sql.createSqlitePool "ten_meter_walk_results" 5
   cfg <- SpockCfg.defaultSpockCfg () (SpockCfg.PCPool pool) ()
   Logger.runStdoutLoggingT
+    -- using runMigrationUnsafe to make dev easier. Should not use in prod.
     $ Sql.runSqlPool (Sql.runMigrationUnsafe migrateAll) pool
   Spock.runSpock 8080 (Spock.spock cfg routes)
 

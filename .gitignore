@@ -1,7 +1,6 @@
 .stack-work/
 Spock-rest.cabal
 # database
-ten_meter_walk_results
 elm-stuff/
 # Asset from running `elm make`
 elm.js
