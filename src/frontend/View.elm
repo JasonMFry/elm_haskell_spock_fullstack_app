@@ -25,7 +25,7 @@ renderTool model =
     let
         showNewPatientForm =
             if model.showNewPatientForm == True then
-                [ renderAddNewPatientInput, renderAddNewPatientButton model.newPatientToAdd ]
+                [ renderAddNewPatientInput model.newPatientToAdd.patientName, renderAddNewPatientButton model.newPatientToAdd ]
 
             else
                 []
@@ -174,11 +174,12 @@ renderShowNewPatientFormButton =
         [ Html.text "Show 'New Patient' Form" ]
 
 
-renderAddNewPatientInput : Html.Html Msg.Msg
-renderAddNewPatientInput =
+renderAddNewPatientInput : Model.PatientName -> Html.Html Msg.Msg
+renderAddNewPatientInput ptName =
     Input.text
         [ Input.id "newPatientName"
         , Input.onInput Msg.NewPatientName
+        , Input.value <| Model.patientNameToString ptName
         ]
 
 
