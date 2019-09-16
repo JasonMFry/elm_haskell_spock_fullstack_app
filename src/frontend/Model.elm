@@ -13,7 +13,7 @@ type alias Model =
     , dropdownState : Dropdown.State
     , timerState : TimerState
     , secondsElapsed : Time.Posix
-    , startTime : Time.Posix
+    , resultTime : Time.Posix
     }
 
 

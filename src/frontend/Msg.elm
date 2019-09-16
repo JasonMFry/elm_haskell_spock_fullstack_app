@@ -16,3 +16,5 @@ type Msg
     | SubmitForm Model.Patient
     | Tick Time.Posix
     | StartTimer
+    | StopTimer
+    | IncrementTimer Time.Posix

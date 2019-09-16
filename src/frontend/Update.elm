@@ -3,6 +3,8 @@ module Update exposing (update)
 import Api
 import Model
 import Msg
+import Task
+import Time
 
 
 update : Msg.Msg -> Model.Model -> ( Model.Model, Cmd Msg.Msg )
@@ -43,7 +45,25 @@ update msg model =
             ( model, Api.putPatient pt )
 
         Msg.Tick seconds ->
-            ( { model | secondsElapsed = seconds }, Cmd.none )
+            let
+                task =
+                    if model.timerState == Model.Running then
+                        Task.perform Msg.IncrementTimer Time.now
+
+                    else
+                        Cmd.none
+            in
+            ( { model | secondsElapsed = seconds }, task )
 
         Msg.StartTimer ->
-            ( { model | startTime = model.secondsElapsed, timerState = Model.Running }, Cmd.none )
+            ( { model | timerState = Model.Running }, Cmd.none )
+
+        Msg.StopTimer ->
+            ( { model | timerState = Model.Stopped }, Cmd.none )
+
+        Msg.IncrementTimer _ ->
+            ( { model
+                | resultTime = Time.millisToPosix (Time.posixToMillis model.resultTime + 1)
+              }
+            , Cmd.none
+            )

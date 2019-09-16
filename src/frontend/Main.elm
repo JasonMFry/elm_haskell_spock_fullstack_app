@@ -27,7 +27,7 @@ init _ =
       , dropdownState = Dropdown.initialState
       , timerState = Model.Stopped
       , secondsElapsed = Time.millisToPosix 0
-      , startTime = Time.millisToPosix 0
+      , resultTime = Time.millisToPosix 0
       }
     , Api.getAllPatients
     )
@@ -41,5 +41,5 @@ subscriptions : Model.Model -> Sub Msg.Msg
 subscriptions model =
     Sub.batch
         [ Dropdown.subscriptions model.dropdownState Msg.DropdownMsg
-        , Time.every 100 Msg.Tick
+        , Time.every 1000 Msg.Tick
         ]

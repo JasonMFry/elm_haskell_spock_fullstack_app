@@ -19,6 +19,7 @@ view model =
 
 renderTool : Model.Model -> List (Html.Html Msg.Msg)
 renderTool model =
+    -- should make these Bools into newtypes so they don't get confused
     let
         disableStartButton =
             if model.timerState == Model.Running then
@@ -35,7 +36,7 @@ renderTool model =
             [ renderDropdown model.dropdownState model.patients
             , renderNotesSection pt
             , renderSubmitButton pt
-            , renderTimer model.secondsElapsed disableStartButton
+            , renderTimer model.resultTime disableStartButton (not disableStartButton)
             ]
 
 
@@ -97,11 +98,12 @@ renderSubmitButton pt =
 -- TIMER
 
 
-renderTimer : Time.Posix -> Bool -> Html.Html Msg.Msg
-renderTimer seconds disableStartButton =
+renderTimer : Time.Posix -> Bool -> Bool -> Html.Html Msg.Msg
+renderTimer timerDisplay disableStartButton disabledStopButton =
     Html.div []
         [ renderStartButton disableStartButton
-        , Html.h1 [] [ Html.text <| String.fromInt <| Time.posixToMillis seconds ]
+        , renderStopButton disabledStopButton
+        , Html.h1 [] [ Html.text <| String.fromInt <| Time.posixToMillis timerDisplay ]
         ]
 
 
@@ -113,4 +115,15 @@ renderStartButton disableButton =
         , Button.onClick <| Msg.StartTimer
         , Button.disabled disableButton
         ]
-        [ Html.text "Start" ]
+        [ Html.text "Start Timer" ]
+
+
+renderStopButton : Bool -> Html.Html Msg.Msg
+renderStopButton disableButton =
+    Button.button
+        [ Button.danger
+        , Button.large
+        , Button.onClick <| Msg.StopTimer
+        , Button.disabled disableButton
+        ]
+        [ Html.text "Stop Timer" ]
