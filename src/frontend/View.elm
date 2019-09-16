@@ -51,7 +51,7 @@ renderDropdown state pts =
         { options = [ Dropdown.alignMenuRight ]
         , toggleMsg = Msg.DropdownMsg
         , toggleButton =
-            Dropdown.toggle [ Button.large ] [ Html.text "MyDropdown1" ]
+            Dropdown.toggle [ Button.large, Button.outlinePrimary ] [ Html.text "Select Patient" ]
         , items = populateDropdown pts
         }
 
