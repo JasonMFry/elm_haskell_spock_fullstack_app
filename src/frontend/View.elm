@@ -25,6 +25,7 @@ renderTool state pts maybePt =
         Just pt ->
             [ renderDropdown state pts
             , renderNotesSection pt
+            , renderSubmitButton pt
             ]
 
 
@@ -66,3 +67,17 @@ renderNotesSection pt =
         , Form.value pt.patientNote
         , Form.onInput Msg.PatientNote
         ]
+
+
+
+-- SUBMIT BUTTON
+
+
+renderSubmitButton : Model.Patient -> Html.Html Msg.Msg
+renderSubmitButton pt =
+    Button.submitButton
+        [ Button.primary
+        , Button.large
+        , Button.onClick <| Msg.SubmitForm pt
+        ]
+        [ Html.text "Submit" ]

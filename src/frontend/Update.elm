@@ -1,5 +1,6 @@
 module Update exposing (update)
 
+import Api
 import Model
 import Msg
 
@@ -19,6 +20,10 @@ update msg model =
                     -- Could add better error output here.
                     ( model, Cmd.none )
 
+        Msg.PutPatient result ->
+            -- do something with the result?
+            ( model, Cmd.none )
+
         Msg.DropdownMsg state ->
             ( { model | dropdownState = state }, Cmd.none )
 
@@ -33,3 +38,6 @@ update msg model =
               }
             , Cmd.none
             )
+
+        Msg.SubmitForm pt ->
+            ( model, Api.putPatient pt )
