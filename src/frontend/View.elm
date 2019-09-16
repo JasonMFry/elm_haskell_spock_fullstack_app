@@ -13,17 +13,17 @@ import Msg
 
 view : Model.Model -> Html.Html Msg.Msg
 view model =
-    Form.form [] (renderTool model.dropdownState model.patients model.selectedPatient)
+    Form.form [] (renderTool model)
 
 
-renderTool : Dropdown.State -> List Model.Patient -> Maybe Model.Patient -> List (Html.Html Msg.Msg)
-renderTool state pts maybePt =
-    case maybePt of
+renderTool : Model.Model -> List (Html.Html Msg.Msg)
+renderTool model =
+    case model.selectedPatient of
         Nothing ->
-            [ renderDropdown state pts ]
+            [ renderDropdown model.dropdownState model.patients ]
 
         Just pt ->
-            [ renderDropdown state pts
+            [ renderDropdown model.dropdownState model.patients
             , renderNotesSection pt
             , renderSubmitButton pt
             ]
