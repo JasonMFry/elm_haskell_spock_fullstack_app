@@ -62,8 +62,14 @@ update msg model =
             ( { model | timerState = Model.Stopped }, Cmd.none )
 
         Msg.IncrementTimer _ ->
+            let
+                ptSeconds =
+                    Time.posixToMillis model.resultTime + 1
+            in
             ( { model
-                | resultTime = Time.millisToPosix (Time.posixToMillis model.resultTime + 1)
+                | resultTime = Time.millisToPosix ptSeconds
+                , selectedPatient =
+                    Maybe.map (\pt -> { pt | patientSeconds = ptSeconds }) model.selectedPatient
               }
             , Cmd.none
             )
