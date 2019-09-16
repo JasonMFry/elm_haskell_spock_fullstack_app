@@ -33,7 +33,6 @@ update msg model =
             ( { model | selectedPatient = Just pt }, Cmd.none )
 
         Msg.PatientNote note ->
-            -- This isn't updating the list of patients, which means if the user switches to a different patient before submitting the form, the new info is wiped out.
             ( { model
                 | selectedPatient =
                     Maybe.map (\p -> { p | patientNote = note }) model.selectedPatient
