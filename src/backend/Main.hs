@@ -17,6 +17,7 @@ import qualified Data.Aeson              as Aeson
 import qualified Data.Text               as T
 import qualified Database.Persist.Sqlite as Sql
 import qualified Database.Persist.TH     as TH
+import qualified Network.Wai.Middleware.Cors             as Cors
 import qualified Web.Spock               as Spock
 import qualified Web.Spock.Config        as SpockCfg
 
@@ -56,8 +57,8 @@ runSql action = Spock.runQuery
   $ \conn -> Logger.runStdoutLoggingT $ Sql.runSqlConn action conn
 
 routes :: Api ()
-routes =
-  Spock.prehook corsHeader $ do
+routes = do
+    Spock.middleware (Cors.cors $ const $ Just corsPolicy)
     Spock.get "patients" $ do
       pts <- runSql $ Sql.selectList [] [Sql.Asc PatientId]
       Spock.json pts
@@ -86,11 +87,18 @@ routes =
           Spock.json $ Aeson.object
             ["result" Aeson..= Aeson.String "success", "id" Aeson..= newId]
 
-corsHeader :: ApiAction ()
-corsHeader =
-  do ctx <- Spock.getContext
-     Spock.setHeader "Access-Control-Allow-Origin" "*"
-     pure ctx
+-- pulled from https://github.com/weso/shexkellWeb/blob/b03df4b663322a933093ba9e41da396c6af90211/ShexkellWeb-API/app/Main.hs#L34
+corsPolicy :: Cors.CorsResourcePolicy
+corsPolicy = Cors.CorsResourcePolicy
+  { Cors.corsOrigins = Nothing
+  , Cors.corsMethods = ["POST", "PUT", "GET"]
+  , Cors.corsRequestHeaders =["Authorization", "Content-Type"]
+  , Cors.corsExposedHeaders = Cors.corsExposedHeaders Cors.simpleCorsResourcePolicy
+  , Cors.corsMaxAge = Cors.corsMaxAge Cors.simpleCorsResourcePolicy
+  , Cors.corsVaryOrigin = Cors.corsVaryOrigin Cors.simpleCorsResourcePolicy
+  , Cors.corsRequireOrigin = True
+  , Cors.corsIgnoreFailures = Cors.corsIgnoreFailures Cors.simpleCorsResourcePolicy
+}
 
 errorJson :: Int -> T.Text -> ApiAction ()
 errorJson code message = Spock.json $ Aeson.object

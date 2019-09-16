@@ -26,6 +26,7 @@ dependencies:
   - persistent-template
   - Spock >= 0.13.0.0 && < 1
   - text
+  - wai-cors >= 0.2.7 && < 1
 
 library:
   source-dirs: src
