@@ -27,6 +27,20 @@ renderTool model =
 
             else
                 False
+
+        resTime =
+            -- If the selected patient has a result time > 0, display that, otherwise display the
+            -- resultTime
+            case model.selectedPatient of
+                Nothing ->
+                    model.resultTime
+
+                Just pt ->
+                    if pt.patientSeconds > 0 then
+                        Time.millisToPosix pt.patientSeconds
+
+                    else
+                        model.resultTime
     in
     case model.selectedPatient of
         Nothing ->
@@ -36,7 +50,7 @@ renderTool model =
             [ renderDropdown model.dropdownState model.patients
             , renderNotesSection pt
             , renderSubmitButton pt
-            , renderTimer model.resultTime disableStartButton (not disableStartButton)
+            , renderTimer resTime disableStartButton (not disableStartButton)
             ]
 
 
