@@ -3,6 +3,7 @@ module Msg exposing (Msg(..))
 import Bootstrap.Dropdown as Dropdown
 import Http
 import Model
+import Time
 
 
 type Msg
@@ -13,3 +14,5 @@ type Msg
     | SelectedPatient Model.Patient
     | PatientNote String
     | SubmitForm Model.Patient
+    | Tick Time.Posix
+    | StartTimer

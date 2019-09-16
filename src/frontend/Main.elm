@@ -5,6 +5,7 @@ import Bootstrap.Dropdown as Dropdown
 import Browser
 import Model
 import Msg
+import Time
 import Update
 import View
 
@@ -24,6 +25,9 @@ init _ =
     ( { patients = []
       , selectedPatient = Nothing
       , dropdownState = Dropdown.initialState
+      , timerState = Model.Stopped
+      , secondsElapsed = Time.millisToPosix 0
+      , startTime = Time.millisToPosix 0
       }
     , Api.getAllPatients
     )
@@ -35,4 +39,7 @@ init _ =
 
 subscriptions : Model.Model -> Sub Msg.Msg
 subscriptions model =
-    Dropdown.subscriptions model.dropdownState Msg.DropdownMsg
+    Sub.batch
+        [ Dropdown.subscriptions model.dropdownState Msg.DropdownMsg
+        , Time.every 100 Msg.Tick
+        ]

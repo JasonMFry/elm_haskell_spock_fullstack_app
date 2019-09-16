@@ -41,3 +41,9 @@ update msg model =
 
         Msg.SubmitForm pt ->
             ( model, Api.putPatient pt )
+
+        Msg.Tick seconds ->
+            ( { model | secondsElapsed = seconds }, Cmd.none )
+
+        Msg.StartTimer ->
+            ( { model | startTime = model.secondsElapsed, timerState = Model.Running }, Cmd.none )
