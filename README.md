@@ -13,12 +13,23 @@
 6. Run `elm make src/frontend/Main.elm --output=elm.js`
 7. Open index.html
 
+## Known Issues
+
+- There is no way to add new patients through the UI.
+- The database doesn't allow for storing multiple test results right now. There
+  is no confirmation dialogue when editing test results, so accidentally
+  overwriting notes and/or times is easy.
+- The UI is ugly :)
+- The app is very un-secure.
+- The timer doesn't allow for anything more precise than seconds. I assumed
+  that would be good enough for the code challenge.
+
 ## Dev Instructions
 
 Thank you for accepting the OPIE Software Coding Challenge.  We believe that
 the best way to determine how well a candidate will create an experience is to
 do one!  We have created a very simple user story for you to demonstrate your
-  command of UI, UX, API, and software development principles.
+command of UI, UX, API, and software development principles.
 
 What we would like you to do is take this user story and create a small program
 that displays your skill.  We would also be interested in any additional
