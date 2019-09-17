@@ -1,7 +1,5 @@
 module View exposing (view)
 
--- import Bootstrap.Form.InputGroup as InputGroup
-
 import Bootstrap.Button as Button
 import Bootstrap.Dropdown as Dropdown
 import Bootstrap.Form as Form

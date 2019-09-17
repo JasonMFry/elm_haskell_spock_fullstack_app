@@ -99,7 +99,7 @@ corsPolicy = Cors.CorsResourcePolicy
   , Cors.corsVaryOrigin = Cors.corsVaryOrigin Cors.simpleCorsResourcePolicy
   , Cors.corsRequireOrigin = True
   , Cors.corsIgnoreFailures = Cors.corsIgnoreFailures Cors.simpleCorsResourcePolicy
-}
+  }
 
 errorJson :: Int -> T.Text -> ApiAction ()
 errorJson code message = Spock.json $ Aeson.object
