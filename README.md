@@ -1,5 +1,9 @@
 # Timed 10-meter Walk Feature
 
+This is an Elm/Haskell-Spock fullstack app. I did this as a code challenge and
+used the opportunity to try out Spock, which I had never used before. It was
+difficult to find Elm/Haskell-Spock examples so I hope this helps someone.
+
 ## Getting Started
 
 1. Clone this repo and `cd` into the ten_meter_walk directory.
@@ -35,5 +39,4 @@ test, it should save the times and a note to a data storage system.
   overwriting notes and/or times is easy.
 - The UI is ugly :)
 - The app is very un-secure.
-- The timer doesn't allow for anything more precise than seconds. I assumed
-  that would be good enough for the code challenge.
+- The timer doesn't allow for anything more precise than seconds.
