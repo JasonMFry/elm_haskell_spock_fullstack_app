@@ -1,25 +1,28 @@
+{-# LANGUAGE DataKinds                  #-}
+{-# LANGUAGE DerivingStrategies         #-}
 {-# LANGUAGE FlexibleInstances          #-}
 {-# LANGUAGE GADTs                      #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE ImportQualifiedPost        #-}
 {-# LANGUAGE MultiParamTypeClasses      #-}
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE QuasiQuotes                #-}
-{-# LANGUAGE TemplateHaskell            #-}
+{-# LANGUAGE StandaloneDeriving         #-}
 {-# LANGUAGE TypeFamilies               #-}
+{-# LANGUAGE UndecidableInstances       #-}
 
 module Main
   ( main
   )
 where
 
-import qualified Control.Monad.Logger    as Logger
-import qualified Data.Aeson              as Aeson
-import qualified Data.Text               as T
-import qualified Database.Persist.Sqlite as Sql
-import qualified Database.Persist.TH     as TH
-import qualified Network.Wai.Middleware.Cors             as Cors
-import qualified Web.Spock               as Spock
-import qualified Web.Spock.Config        as SpockCfg
+import Control.Monad.Logger qualified        as Logger
+import Data.Aeson qualified                  as Aeson
+import Data.Text qualified                   as T
+import Database.Persist.Sqlite qualified     as Sql
+import Database.Persist.TH qualified         as TH
+import Network.Wai.Middleware.Cors qualified as Cors
+import Web.Spock qualified                   as Spock
+import Web.Spock.Config qualified            as SpockCfg
 
 
 type Api = Spock.SpockM Sql.SqlBackend () ()

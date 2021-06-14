@@ -5,57 +5,29 @@
 
 packages:
 - completed:
-    hackage: Spock-0.13.0.0@sha256:163ef2698fed8f5801428d8dbe794fd126415a5ff3304b227750fdc4037497be,3745
+    hackage: Spock-0.14.0.0@sha256:7e86ccc9e66ce0fdb84d1dcd328f852d3754c2dbfcb60d0e7e2f1cce2f32f177,3681
     pantry-tree:
       size: 1118
-      sha256: 9ddd674e7a88e8495727a1857976ee3e5ef5dfa733e379416eb12a42781d586c
+      sha256: 6829dae9ba2492fae3e447afe13013dd863bd48fd5b8addfa74fc55d979de7b2
   original:
-    hackage: Spock-0.13.0.0@sha256:163ef2698fed8f5801428d8dbe794fd126415a5ff3304b227750fdc4037497be,3745
+    hackage: Spock-0.14.0.0@sha256:7e86ccc9e66ce0fdb84d1dcd328f852d3754c2dbfcb60d0e7e2f1cce2f32f177,3681
 - completed:
-    hackage: Spock-core-0.13.0.0@sha256:06e007f23c47bdda52d2927da54160d73f1b6f51a977f3ca9087275698db8f0a,3400
+    hackage: Spock-core-0.14.0.0@sha256:b55935c2c2a259a9966999239ee6ec5e41f7d933a58baade687ffa4b4a46fe32,3457
     pantry-tree:
       size: 1113
-      sha256: 86140298020f68bb09d07b26a6a6f1666fc3a02715d7986b09150727247a1a84
+      sha256: c89cd43f14dd0cc960627f13e5bbc027172f0be85f277f998f06266d48ab8367
   original:
-    hackage: Spock-core-0.13.0.0@sha256:06e007f23c47bdda52d2927da54160d73f1b6f51a977f3ca9087275698db8f0a,3400
+    hackage: Spock-core-0.14.0.0@sha256:b55935c2c2a259a9966999239ee6ec5e41f7d933a58baade687ffa4b4a46fe32,3457
 - completed:
-    hackage: reroute-0.5.0.0@sha256:3360747cdc700c9808a38bff48b75926efa443d4af282396082329a218a8d9d3,2446
+    hackage: reroute-0.6.0.0@sha256:43805b3fdc7ed1ba701cd10e249abc997b2291c8f374b8333bb2ea0e0d1dad0b,2382
     pantry-tree:
       size: 660
-      sha256: 52afcff0a5dba2fb746be4fa8cfa56cf774272872b61130537fe0e7ad463c0cd
+      sha256: 0a27afabb1730147d6aa0ddf5cc6368951c4625e3706cb8f5388da9739372fa3
   original:
-    hackage: reroute-0.5.0.0@sha256:3360747cdc700c9808a38bff48b75926efa443d4af282396082329a218a8d9d3,2446
-- completed:
-    hackage: stm-containers-0.2.16@sha256:e98efa8dcf0045ea8a78a04b4e2763cf2d8bc33aad0750e2f30a67f8f4e933b1,8454
-    pantry-tree:
-      size: 1564
-      sha256: 00d9830990f351bda6b5322ec4adab4386d0a36d3f1a997ec378434c2923f376
-  original:
-    hackage: stm-containers-0.2.16@sha256:e98efa8dcf0045ea8a78a04b4e2763cf2d8bc33aad0750e2f30a67f8f4e933b1,8454
-- completed:
-    hackage: focus-0.1.5.2@sha256:fc5c76a5be3a9a1c456106d6f389939299c7e05a1a24938b909f043e36a3e37b,1519
-    pantry-tree:
-      size: 206
-      sha256: b8371b82b496602010a3a5b8e33a0e9108a5a3c70d99f842859bae89face740c
-  original:
-    hackage: focus-0.1.5.2@sha256:fc5c76a5be3a9a1c456106d6f389939299c7e05a1a24938b909f043e36a3e37b,1519
-- completed:
-    hackage: Spock-lucid-0.4.0.1@sha256:fa2c6ae737bad26767820af29c913140a657acbf745e90c9f9d4a184953855dc,1117
-    pantry-tree:
-      size: 269
-      sha256: e0c8e85d0fce0a307ef5c52f9e00beebc3a79f984338ec088e9e6f15a2879209
-  original:
-    hackage: Spock-lucid-0.4.0.1@sha256:fa2c6ae737bad26767820af29c913140a657acbf745e90c9f9d4a184953855dc,1117
-- completed:
-    hackage: wai-cors-0.2.7@sha256:c3309a9c9db001cb5c3c777222ba3389f35c2ec57425731cddf2af8515b204b2,2905
-    pantry-tree:
-      size: 792
-      sha256: 0e2d17d354d6ebf02aa5a37dddb83b716038a1d6b4dcda0a6379ceb60909e956
-  original:
-    hackage: wai-cors-0.2.7@sha256:c3309a9c9db001cb5c3c777222ba3389f35c2ec57425731cddf2af8515b204b2,2905
+    hackage: reroute-0.6.0.0@sha256:43805b3fdc7ed1ba701cd10e249abc997b2291c8f374b8333bb2ea0e0d1dad0b,2382
 snapshots:
 - completed:
-    size: 509471
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/12/26.yaml
-    sha256: 95f014df58d0679b1c4a2b7bf2b652b61da8d30de5f571abb0d59015ef678646
-  original: lts-12.26
+    size: 567679
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/17/15.yaml
+    sha256: 72e87841a0ab5b72f6f018e8ee692fd972b7bb32a944990f028e10d6eb528e63
+  original: lts-17.15

@@ -18,13 +18,21 @@ extra-source-files:
 # common to point users to the README.md file.
 description: Please see the README on GitHub at <https://github.com/JasonMFry/ten_meter_walk#readme>
 
+# If you need to include another library (for example the package  text):
+# 1. Add the package text to the file package.yaml in the section dependencies: ....
+# 2. Run stack build another time.
+# 3. stack build will update my-project.cabal for you. If desired you can update
+# the .cabal file manually and stack will use .cabal instead of package.yaml.
+# 4. If you get an error that tells you your package isn't in the LTS. Just try to
+# add a new version in the stack.yaml file in the extra-deps section.
+
 dependencies:
   - base >= 4.7 && < 5
   - aeson
   - monad-logger
   - persistent-sqlite
   - persistent-template
-  - Spock >= 0.13.0.0 && < 1
+  - Spock >= 0.14.0.0 && < 1
   - text
   - wai-cors >= 0.2.7 && < 1
 
@@ -40,7 +48,5 @@ executables:
       - -rtsopts
       - -with-rtsopts=-N
       # Use these for dev, remove afterwards
-      # - -Weverything
-      # - -Werror
-    dependencies:
-      - Spock-rest
+      - -Weverything
+      - -Werror
